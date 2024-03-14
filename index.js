@@ -23,43 +23,34 @@ const addNewGoal = () => {
     const goalInput = document.querySelector('#goalInput').value;
     const goalList = document.querySelector('#goalList');    
     const goalListItems = document.querySelectorAll('#goalList li');
+    let isDuplicate = false;           
 
-    // ⚠️ Hint 1: Check for duplicates
-    // Use 'goalList' to get all existing goals and check if 'goalInput' matches any of them.
-
-    const newGoal = document.createElement('li');
-    newGoal.innerHTML = goalInput;
-    goalList.appendChild(newGoal);    
-
-    function validate (goal) {
-        if (goal.innerHTML == goalInput) {
-               alert('Goal already added')                      
-            }
-        return
+    function validate (goal) {        
+        if (goal.textContent == goalInput) {
+               alert('Goal already added')  
+               isDuplicate = true;
+               return;                    
+            }    
     }
     goalListItems.forEach(validate)  
     
-        
+    if (isDuplicate) {
+        alert('Goal already added');
+        return; // Don't add duplicate goals
+    }   
     
+    const newGoal = document.createElement('li');
+    newGoal.innerHTML = goalInput;
+    goalList.appendChild(newGoal); 
 
-    console.log(goalListItems)
-  
-    
-    // ⚠️ Hint 2: Prevent duplicates
-    // If a duplicate is found, display an alert to the user and don't add the goal to the list.
-    // If it's not a duplicate, proceed with adding it as a new goal.
-    
-    // ⚠️ Hint 3: Code structure
-    // You might want to wrap the duplicate-checking logic in an 'if' statement.
+    console.log(goalListItems)   
+
     
     // ⚠️ Hint 4: Event listener
     // The event listener that removes goals when clicked is not related to this issue.
-    // Focus on preventing duplicates for now.
-    
+    // Focus on preventing duplicates for now.    
    
 };
-
-
 
 // Add event listener to the goal submit button
 document.querySelector('#submitGoal').addEventListener('click', addNewGoal);
@@ -93,3 +84,5 @@ const submitMealPlan = (event) => {
 };
 
 document.querySelector('#mealPlanForm').addEventListener('submit', submitMealPlan);
+
+
